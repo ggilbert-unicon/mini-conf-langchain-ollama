@@ -1,0 +1,20 @@
+[Grade 7 Math - Ratios and Proportional Relationships]
+Standard Code: 7.RP.A.1
+Description: Compute unit rates associated with ratios of fractions, including ratios of lengths, areas, and other quantities measured in like or different units.
+
+Standard Code: 7.RP.A.2
+Description: Recognize and represent proportional relationships between quantities. Determine if two quantities are proportional using tables, graphs, equations, and verbal descriptions.
+
+[Grade 7 ELA - Writing]
+Standard Code: W.7.1
+Description: Write arguments to support claims with clear reasons and relevant evidence. Introduce claim(s), acknowledge alternate or opposing claims, and organize reasons and evidence logically.
+
+Standard Code: W.7.2
+Description: Write informative/explanatory texts to examine a topic and convey ideas, concepts, and information through the selection, organization, and analysis of relevant content.
+
+[Grade 5 Science - Earth and Space Sciences]
+Standard Code: 5-ESS2-1
+Description: Develop a model using an example to describe ways the geosphere, biosphere, hydrosphere, and/or atmosphere interact.
+
+Standard Code: 5-ESS3-1
+Description: Obtain and combine information about ways individual communities use science ideas to protect the Earth's resources and environment.
