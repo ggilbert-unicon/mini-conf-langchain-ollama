@@ -2,7 +2,7 @@
 
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_ollama import OllamaEmbeddings
+from langchain_community.embeddings import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 
 # Loads your plain text file into a LangChain Document object
@@ -16,4 +16,5 @@ docs = splitter.split_documents(documents)
 embedding = OllamaEmbeddings(model="llama3")
 # Now we store the embeddings in a Chroma vector store so we can search them later in the RAG pipeline.
 vectordb = Chroma.from_documents(docs, embedding, persist_directory="./nh_chroma")
+vectordb.persist()
 
