@@ -1,5 +1,5 @@
 from langchain.chains import RetrievalQA
-from langchain_ollama import OllamaLLM, OllamaEmbeddings
+from langchain_ollama import _____________, OllamaEmbeddings
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
@@ -18,12 +18,12 @@ embedding = OllamaEmbeddings(model="llama3")
 vectordb = Chroma.from_documents(docs, embedding, persist_directory="./nh_chroma")
 
 # Uses LLaMA 3 locally via Ollama
-llm = OllamaLLM(model="llama3")
+llm = ___________(model="___________")
 
 # Uses Chroma to return the top 3 relevant chunks
-retriever = vectordb.as_retriever(search_kwargs={"k": 3})
-rag_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
+retriever = _____________.as_retriever(search_kwargs={"k": 3})
+rag_chain = RetrievalQA.from_chain_type(llm=_______, retriever=_________)
 
 query = "Create a 5th grade lesson plan for ecosystems."
-result = rag_chain.invoke(query)
+result = __________.invoke(__________)
 print(result)

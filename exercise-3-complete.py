@@ -1,9 +1,5 @@
-from langchain.chains import RetrievalQA
 from langchain_ollama import OllamaLLM, OllamaEmbeddings
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
@@ -29,8 +25,6 @@ llm = OllamaLLM(model="llama3")
 
 # Uses Chroma to return the top 3 relevant chunks
 retriever = vectordb.as_retriever(search_kwargs={"k": 3})
-# rag_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
-
 
 template = ChatPromptTemplate(([
     ("system", """

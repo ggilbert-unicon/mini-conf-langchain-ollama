@@ -1,13 +1,9 @@
-from langchain.chains import RetrievalQA
 from langchain_ollama import OllamaLLM, OllamaEmbeddings
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains import LLMChain
+from langchain.prompts import _________________
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_core.runnables import RunnablePassthrough
+from langchain_core.runnables import __________________
 from langchain_core.output_parsers import StrOutputParser
 
 
@@ -29,10 +25,8 @@ llm = OllamaLLM(model="llama3")
 
 # Uses Chroma to return the top 3 relevant chunks
 retriever = vectordb.as_retriever(search_kwargs={"k": 3})
-# rag_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever)
 
-
-template = ChatPromptTemplate(([
+template = _____________________(([
     ("system", """
         You are a curriculum designer. You sreate a lesson plan for the given topic that
         include:
@@ -42,18 +36,18 @@ template = ChatPromptTemplate(([
         - Standards
         Respond in plain text.
     """),
-    ("human", "Context: {context}\nTopic: {topic}"),
+    ("human", "Context: {__________}\nTopic: {___________}"),
 ]))
 
 rag_chain = (
-    {"context": retriever, "topic": RunnablePassthrough()}
+    {"context": ___________, "topic": _________________}
     | template
-    | llm  # Assume 'llm' is a configured language model instance
+    | llm  
     | StrOutputParser()
 )
 
 # 3. Invoke the chain with a user's question
 topic = "5th grade lesson plan for ecosystems."
-response = rag_chain.invoke(topic)
+response = rag_chain.invoke(___________)
 
 print(response)
