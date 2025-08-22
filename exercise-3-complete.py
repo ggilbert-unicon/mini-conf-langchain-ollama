@@ -28,7 +28,7 @@ retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
 template = ChatPromptTemplate(([
     ("system", """
-        You are a curriculum designer. You sreate a lesson plan for the given topic that
+        You are a curriculum designer. You create a lesson plan for the given topic that
         include:
         - Objective
         - Activities
