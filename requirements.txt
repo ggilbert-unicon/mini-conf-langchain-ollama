@@ -2,6 +2,7 @@ attr==0.3.2
 brotli==1.1.0
 brotlicffi==1.1.0.0
 chardet==5.2.0
+chromadb==1.0.17
 colorama==0.4.6
 ConfigParser==7.2.0
 coverage==7.10.4
