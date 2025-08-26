@@ -19,6 +19,7 @@ from langchain_community.utilities import WikipediaAPIWrapper
 
 
 # Pydantic for schema validation
+from numpy._core.numeric import result_type
 from pydantic import BaseModel, Field, ValidationError
 
 
@@ -103,12 +104,13 @@ def web_search_tool(query: str) -> str:
     Returns a list of resources as a JSON string.
     """
     llm = OllamaLLM(model="llama3")
-    prompt = PromptTemplate.from_template("""Extract and return the most important keyword from this query: {query}""")
+    prompt = PromptTemplate.from_template("""Extract and return the most important keyword from this query: {query} 
+    Return only the keyword, no explanation or unnecessary words""")
     chain = prompt | llm
     keyword = chain.invoke(query)
-    print(keyword)
     search = WikipediaQueryRun(api_wrapper=WikipediaAPIWrapper())
-    results = search.run(keyword)
+    results = search.run(keyword, results=2)
+    print(type(results))
     print(results)
     return results
 
@@ -118,11 +120,7 @@ def json_formatter_tool(inputs: str) -> str:
     """
     Returns a JSON string matching the LessonPlan schema.
     """
-    HUMAN = """Build the FINAL lesson plan JSON using the schema and the provided content.
-        - Use 'standards_context' to identify or infer 'aligned_standards' codes.
-        - Summarize 'draft_plan_text' into concise objectives, activities, and assessment.
-        - Add 'supplement_links' into 'supplemental_resources'.
-        - If grade or subject are implied, set them.
+    HUMAN = """Build the FINAL lesson plan JSON using the format rules and the provided content.
 
         Follow these format rules (do not echo anything else):
         {format_instructions}
@@ -147,7 +145,7 @@ def json_formatter_tool(inputs: str) -> str:
     )
 
     chain = prompt.partial(format_instructions=format_instructions) | llm | json_parser
-    lesson_plan = chain.invoke({'inputs',inputs})
+    lesson_plan = chain.invoke({'inputs':inputs})
 
     return lesson_plan
 
@@ -180,8 +178,8 @@ def run_agent(topic: str, verbose: bool = True) -> str:
 You are a curriculum planning agent. The user topic is: "{topic}".
 Steps you should take (but you decide the order):
 1) Draft a plan with LessonPlanner using the topic and any standards context you have.
-2) If activities/resources are requested or beneficial, call WebSearch to find classroom resources (2–5).
-3) Call JSONFormatter last with a JSON payload follow these format rules:\n{format_instructions}
+2) If activities/resources are requested or beneficial, call WebSearch with the topic to find classroom resources (2–5).
+3) Call JSONFormatter last with a JSON payload follow these format rules:\n{format_instructions} If WebSearch returns any resources, add them to the supplemental_resources list - use Page value as the title and append the Page value to 'http://wikipedia.org/wiki/' as the url.
    
 Return ONLY the final JSON produced by JSONFormatter.
 """
@@ -198,11 +196,6 @@ if __name__ == "__main__":
 
     try:
         json_str = run_agent(topic=args.topic, verbose=True)
-        # Print as pretty JSON if parseable, else raw
-        try:
-            print(json_str['output'])
-        except Exception as ex:
-            print(ex)
-            #print(json_str)
+        print(json_str['output'])
     except Exception as e:
         print(json.dumps({"error": "Unhandled", "details": str(e)}, indent=2))

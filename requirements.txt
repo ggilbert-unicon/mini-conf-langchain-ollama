@@ -30,4 +30,5 @@ redis==6.4.0
 runtests==0.0.28
 setuptools==80.9.0
 simplejson==3.20.1
+wikipedia==1.4.0
 zstandard==0.24.0

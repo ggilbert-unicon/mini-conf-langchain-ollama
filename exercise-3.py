@@ -28,8 +28,8 @@ retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
 template = _____________________(([
     ("system", """
-        You are a curriculum designer. You sreate a lesson plan for the given topic that
-        include:
+        You are a curriculum designer. You create a lesson plan for the given topic that
+        includes:
         - Objective
         - Activities
         - Assessment
